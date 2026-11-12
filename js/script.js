@@ -19,7 +19,7 @@ function applyTheme(theme) {
   themeButton.title = `Switch to ${nextTheme} mode`;
   themeLabel.textContent = nextTheme === "light" ? "Light" : "Dark";
   themeIcon.textContent = nextTheme === "light" ? "☼" : "☾";
-  document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#090909" : "#ffffff";
+  document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#191c18" : "#f5f2eb";
 }
 
 let savedTheme = null;
@@ -28,7 +28,7 @@ try {
 } catch (error) {
   console.warn("Theme preference could not be read from local storage.", error);
 }
-applyTheme(savedTheme === "light" ? "light" : "dark");
+applyTheme(savedTheme === "dark" ? "dark" : "light");
 
 themeButton.addEventListener("click", () => {
   const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
@@ -62,15 +62,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const roles = ["Web Development", "Commerce Studies", "Creative Thinking", "Digital Ideas"];
-const roleElement = document.querySelector(".rotating-role");
-if (!reducedMotion) {
-  let roleIndex = 0;
-  window.setInterval(() => {
-    roleIndex = (roleIndex + 1) % roles.length;
-    roleElement.textContent = roles[roleIndex];
-  }, 2800);
-}
 
 const yearElement = document.querySelector("#current-year");
 yearElement.textContent = String(new Date().getFullYear());
