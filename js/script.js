@@ -62,6 +62,54 @@ document.addEventListener("keydown", (event) => {
 });
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const introGate = document.querySelector("#intro-gate");
+const introButton = document.querySelector("#intro-enter");
+
+if (introGate && introButton) {
+  const pageContent = Array.from(document.body.children).filter((element) => element !== introGate);
+  let isOpening = false;
+  let finishTimer;
+
+  const finishOpening = () => {
+    if (!isOpening || introGate.hidden) return;
+    window.clearTimeout(finishTimer);
+    introGate.hidden = true;
+    document.body.classList.remove("intro-locked");
+    pageContent.forEach((element) => element.removeAttribute("inert"));
+    document.querySelector("#main").focus({ preventScroll: true });
+  };
+
+  introGate.hidden = false;
+  document.body.classList.add("intro-locked");
+  pageContent.forEach((element) => element.setAttribute("inert", ""));
+  introButton.focus({ preventScroll: true });
+
+  introGate.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      introButton.focus();
+    }
+  });
+
+  introGate.addEventListener("animationend", (event) => {
+    if (event.target === introGate && event.animationName === "gate-dismiss") {
+      finishOpening();
+    }
+  });
+
+  introButton.addEventListener("click", () => {
+    if (isOpening) return;
+    isOpening = true;
+    introGate.classList.add("is-opening");
+
+    if (reducedMotion) {
+      finishOpening();
+      return;
+    }
+
+    finishTimer = window.setTimeout(finishOpening, 1200);
+  });
+}
 
 const yearElement = document.querySelector("#current-year");
 yearElement.textContent = String(new Date().getFullYear());
