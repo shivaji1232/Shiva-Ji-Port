@@ -159,7 +159,9 @@ h1, h2, h3, p { margin-top: 0; }
 .contact-copy > p:not(.eyebrow) { max-width: 330px; color: var(--muted); font-size: 14px; }
 .contact-links { margin-top: 40px; }
 .contact-links p { display: flex; justify-content: space-between; gap: 15px; max-width: 370px; padding: 10px 0; margin: 0; border-bottom: 1px solid var(--line); font-size: 11px; }
-.contact-links span { color: var(--faint); text-align: right; }
+.contact-links p > span { color: var(--muted); }
+.contact-links a { color: var(--faint); text-align: right; text-decoration: none; overflow-wrap: anywhere; transition: color .2s ease; }
+.contact-links a:hover { color: var(--accent); }
 .contact-form { display: grid; grid-template-columns: 1fr; }
 .contact-form label { margin: 0 0 7px; font-size: 11px; }
 .contact-form input, .contact-form textarea { width: 100%; margin-bottom: 20px; padding: 12px 13px; border: 1px solid var(--line); border-radius: 8px; outline: none; background: var(--bg); color: var(--text); font-size: 13px; transition: border-color .2s ease; }
